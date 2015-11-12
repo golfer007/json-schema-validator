@@ -2,7 +2,7 @@
 
 class JsonSchemaValidator
 {
-    public static function validate($data, $schemaFile = '')
+    public static function validate($data, $schemaPath = '')
     {
         if (\Config::get('json-schema-validator::config.run') === false) {
             return true;
@@ -11,14 +11,12 @@ class JsonSchemaValidator
         if (! empty($schemaFile)) {
             $retriever = new \JsonSchema\Uri\UriRetriever;
 
-            $path = config('json-schema-validator.schemaDir') . '/' . $schemaFile;
-
-            $schema = $retriever->retrieve('file://' . $path);
+            $schema = $retriever->retrieve('file://' . $schemaPath);
 
             $validator = new \JsonSchema\Validator();
             $validator->check($data, $schema);
-            
-            return $validator->isValid();
+
+            return $validator;
         }
 
         return true;
