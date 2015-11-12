@@ -18,7 +18,7 @@ class JsonSchemaValidatorServiceProvider extends ServiceProvider {
 	 */
 	public function boot()
 	{
-		$this->package('satooon/json-schema-validator');
+		// $this->package('satooon/json-schema-validator');
 	}
 
 	/**
@@ -28,7 +28,12 @@ class JsonSchemaValidatorServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-        $this->app['config']->package('satooon/json-schema-validator', __DIR__.'/../config');
+//        $this->app['config']->package('satooon/json-schema-validator', __DIR__.'/../config');
+
+		$configPath = __DIR__.'/../config/config.php';
+
+		// Merge config from vendor, override by user config.
+		$this->mergeConfigFrom($configPath, 'json-schema-validator');
 
 		$this->app->bind('jsonSchemaValidator',function(){
 			return new JsonSchemaValidator;
