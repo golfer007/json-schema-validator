@@ -8,7 +8,7 @@ class JsonSchemaValidator
             return true;
         }
 
-        if (! empty($schemaFile)) {
+        if (! empty($schemaPath)) {
             $retriever = new \JsonSchema\Uri\UriRetriever;
 
             $schema = $retriever->retrieve('file://' . $schemaPath);
